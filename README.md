@@ -42,8 +42,6 @@ We encourage you to contribute to the repository by:
 - Sharing your experience and tips.
 - Reporting issues or improvements.
 
-Check the [contribution guidelines](./CONTRIBUTING.md) for more details.
-
 ## License
 
 This repository is licensed under the [MIT License](./LICENSE).

@@ -131,10 +131,8 @@ Solution: Remove the existing `~/.kube` directory, then create and copy the conf
 
 *Solution*: Use the correct hostname and ensure network connectivity. If issues persist, verify the SSH configuration.
 
-![Error 2 Solution](assets/20231121021005.png)
 
 
-![Verification 4](assets/20231121021217.png)
 
 ### Snapshot Management
 
@@ -144,6 +142,8 @@ Take advantage of Vagrant snapshots for easy management:
 `vagrant halt`: Gracefully shuts down the virtual machine.
 
 `vagrant snapshot save kubernetes-clean`: Captures the current VM state as a snapshot named "kubernetes-clean."
+
+![Verification 4](assets/20231121021217.png)
 
 `vagrant snapshot list kmaster`: Lists available snapshots for the "kmaster" VM.
 
