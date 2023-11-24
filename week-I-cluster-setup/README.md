@@ -1,4 +1,4 @@
-# Setting up a Kubernetes Cluster with 1 Master and 2 Worker Nodes
+# Setting up a Vanilla Kubernetes Cluster with 1 Master and 2 Worker Nodes
 
 ## The Challenge and Solution
 
