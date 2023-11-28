@@ -18,7 +18,7 @@ A "Context" is a combination of a cluster, user, and namespace. It is a way to s
 Set the context to 'ckad', set the user field on the ckad context to admin, specify the newly created namespace simultaneously. Switch to context 'tossi'. 
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
@@ -37,7 +37,7 @@ k config use-context tossi
 **2-)** Find out the short name for namespaces
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
@@ -57,7 +57,7 @@ k api-resources | grep -i namespace
 Once you see the pod status running, delete the pod object immediately.
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
@@ -93,7 +93,7 @@ Let's try something different. Enable autocompletion for kubectl commands in you
 
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
@@ -136,7 +136,7 @@ Create an environment variable in a bash shell that can achieve the upper result
 Nope, don't create a manifest file.
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
@@ -168,7 +168,7 @@ k run sleepy-t --image=busybox $do
 Create a Kubernetes Pod named "loop" in the "true-b" namespace. The Pod runs a container using the "busybox" image, with a looping script echoing "Hello $i times" for values of i from 1 to 10.
 
 <span style="color:green;">
-<details open>
+<details closed>
   <summary>
   Answer
   </summary>
