@@ -45,7 +45,7 @@ Welcome to our CKA/CKAD study group repository! 🚀 This space is dedicated to 
    Connect with fellow learners, ask questions, and participate in discussions related to CKA/CKAD exam preparation.
 
 ### Set Up Your Environment
-   - Follow the instructions in the [week I setup](https://github.com/colossus06/cka-ckad-study-group-2024/tree/main/week-I-cluster-setup) guide to configure your Kubernetes environment for studying.
+   - Follow the instructions in the [week I setup](https://github.com/colossus06/cka-ckad-study-group-2024/tree/main/week-I-cluster-setup) guide to configure your Kubernetes environment for studying. Deploy a sample 3 Tier App following [ Week II instructions](https://github.com/colossus06/cka-ckad-study-group-2024/tree/main/week-II-3-tier-app-setup)
 
    Ensure you have a suitable Kubernetes environment for hands-on practice and labs by following the provided setup instructions.
 
