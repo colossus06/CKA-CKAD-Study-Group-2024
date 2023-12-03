@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: mysqlpod
+  name: mysqlpod
+spec:
+  containers:
+  - image: mysql
+    name: mysqlpod
+    env:
+    - name: MYSQL_DATABASE
+      valueFrom:
+        configMapKeyRef:
+          name: db-config
+          key: MYSQL_DATABASE
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: db-secret
+          key: MYSQL_ROOT_PASSWORD
+
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
