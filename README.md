@@ -66,3 +66,17 @@ We encourage you to contribute to the repository by:
 
 This repository is licensed under the [MIT License](./LICENSE).
 
+
+
+## Keep a Journal to Share your Journey
+
+- [ ] [Week 1](journal/week1.md)
+- [ ] [Week 2](journal/week1.md)
+- [ ] [Week 3](journal/week1.md)
+- [ ] [Week 4](journal/week1.md)
+- [ ] [Week 5](journal/week1.md)
+- [ ] [Week 6](journal/week1.md)
+- [ ] [Week 7](journal/week1.md)
+- [ ] [Week 8](journal/week1.md)
+- [ ] [Week 9](journal/week1.md)
+- [ ] [Week 10](journal/week1.md)
