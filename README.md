@@ -41,6 +41,11 @@ Welcome to our **CKA/CKAD** study group repository! 🚀 This space is dedicated
 * Cluster Architecture, Installation & Configuration **25%**
 * Services & Networking **20%**
 
+
+### KCNA Curriculum
+<!-- todo ADD kcna curriculum and domain weights like in the ckad curriculum -->
+
+
 ### Scenarios Hands-on Learning
 
 * [Core Skills-Part I](https://github.com/colossus06/cka-ckad-study-group-2024/blob/main/week-II-scenarios/1-core-skills-general.md)
