@@ -1,6 +1,6 @@
 # CKA/CKAD Study Group Repository 🚀
 
-Welcome to our CKA/CKAD study group repository! 🚀 This space is dedicated to collaborative learning and preparation for the Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams.
+Welcome to our **CKA/CKAD** study group repository! 🚀 This space is dedicated to collaborative learning and preparation for the Certified Kubernetes Administrator (CKA) and Certified Kubernetes Application Developer (CKAD) exams.
 
 ![](ckadsg.png)
 
@@ -25,13 +25,21 @@ Welcome to our CKA/CKAD study group repository! 🚀 This space is dedicated to 
 
    Clone this repository to your local machine to access study materials, practice scenarios, and other resources.
 
-### Curriculum
+### CKAD Curriculum
 
 * **20%: Application Design and Build**
 * **20%: Application Deployment**
 * **25%: Application Environment, Configuration and Security**
 * **20%: Services & Networking**
 
+
+### CKA Curriculum
+<!-- todo edit cka curriculum domain weights like in the ckad curriculum -->
+* Storage **10%**
+* Troubleshooting **30%**
+* Workloads & Scheduling **15%**
+* Cluster Architecture, Installation & Configuration **25%**
+* Services & Networking **20%**
 
 ### Scenarios Hands-on Learning
 
