@@ -70,7 +70,7 @@ This repository is licensed under the [MIT License](./LICENSE).
 
 ## Keep a Journal to Share your Journey
 
-- [ ] [Week 1](journal/week1.md)
+- [ ] [Week 1](https://github.com/colossus06/cka-ckad-study-group-2024/blob/main/journal/week-I.md)
 - [ ] [Week 2](journal/week1.md)
 - [ ] [Week 3](journal/week1.md)
 - [ ] [Week 4](journal/week1.md)
