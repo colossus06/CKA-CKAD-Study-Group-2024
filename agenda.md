@@ -1,4 +1,5 @@
 # CKA/CKAD SG 🚀 weekly sessions Agenda
+
 ## **Week I Agenda- 11/26/23**
 
 **Agenda:** Today's agenda is to make an introduction part I, what we want to achieve with the group alongwith certification purposes, how we can succeed in it, and hear some insights from the experts.
