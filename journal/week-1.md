@@ -88,3 +88,7 @@ We see that the bitnami/nginx container is running.
 
 ## Key Learnings
 
+* I started to think that vim is easier than nano. Completely adopted vim not just for the sake of the exam, but also for daily use.
+* settin paste and `set et ai nu sw=2 ts=2` is more than enough for a stable, persistent .vimrc
+* Happy that i finally started the curriculum and bought the exam, just start and you will be fine.
+* There are some outdated rosources, labs, follow the latest ones or adapt them.
