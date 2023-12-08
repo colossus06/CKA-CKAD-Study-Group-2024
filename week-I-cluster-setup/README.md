@@ -66,7 +66,7 @@ Add the following entries to your `/etc/hosts` file:
 172.16.16.105   kworker2.example.com    kworker5 
 ```
 
-![](20231208110726.png)
+![](assets/20231208110726.png)
 
 
 ```
@@ -80,7 +80,7 @@ scp root@172.16.16.100:/etc/kubernetes/admin.conf ~/.kube/config
 ```
 pasword is kubeadmin :)
 
-![](20231208110903.png)
+![](assets/20231208110903.png)
 
 
 Testing the config file: 
@@ -162,6 +162,73 @@ Take advantage of Vagrant snapshots for easy management:
 
 Once you take the snapshot of the cluster, you can run `vagrant up` to bring the cluster up virtual machine based on that snapshot.
 
+## Deploying the Distributed App to the 6 node cluster
+
+## Edit From the Week II
+
+Now it's time to deploy the distributed voting app to your cluster after testing it with:
+
+
+* docker compose
+* minikube
+
+*challenge*: Test it with docker swarm too
+
+Revive your containers using vagrant up: 
+
+Copy your .kube config using scp:
+
+![](assets/20231208114725.png)
+
+Let's deploy the using pod and service objects one by one:
+
+
+**python app**
+
+```
+k apply -f ../week-II/voting-app/k8s-manifests/voting_app.yaml
+k apply -f ../week-II/voting-app/k8s-manifests/svc-app.yaml
+```
+
+![](assets/20231208114818.png)
+
+**redis**
+
+```
+k apply -f ../week-II/voting-app/k8s-manifests/redis.yaml
+k apply -f ../week-II/voting-app/k8s-manifests/svc-redis.yaml
+```
+
+![](assets/20231208114858.png)
+
+
+**psql**
+
+```
+k apply -f ../week-II/voting-app/k8s-manifests/db.yaml
+k apply -f ../week-II/voting-app/k8s-manifests/svc-db.yaml
+```
+![](assets/20231208114933.png)
+
+**worker**
+
+![](assets/20231208115042.png)
+
+![](assets/20231208115144.png)
+
+**result pod and service objects**
+
+```
+k apply -f ../week-II/voting-app/k8s-manifests/voting_app_result.yaml
+k apply -f ../week-II/voting-app/k8s-manifests/svc-result.yaml
+```
+
+
+![](assets/20231208115425.png)
+
+## verification
+
+![](assets/20231208122158.png)
 
 ## Conclusion
 
