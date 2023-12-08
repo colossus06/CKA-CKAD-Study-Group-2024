@@ -65,4 +65,7 @@ cat >>/etc/hosts<<EOF
 172.16.16.100   kmaster.example.com     kmaster
 172.16.16.101   kworker1.example.com    kworker1
 172.16.16.102   kworker2.example.com    kworker2
+172.16.16.103   kmaster3.example.com    kmaster3
+172.16.16.104   kworker4.example.com    kworker4
+172.16.16.105   kworker5.example.com    kworker5
 EOF
