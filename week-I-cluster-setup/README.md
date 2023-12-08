@@ -60,8 +60,14 @@ Add the following entries to your `/etc/hosts` file:
 ```plaintext
 172.16.16.100   kmaster.example.com     kmaster
 172.16.16.101   kworker1.example.com    kworker1        
-172.16.16.102   kworker2.example.com    kworker2 
+172.16.16.102   kworker2.example.com    kworker2
+172.16.16.103   kworker1.example.com    kworker3       
+172.16.16.104   kworker2.example.com    kworker4
+172.16.16.105   kworker2.example.com    kworker5 
 ```
+
+![](20231208110726.png)
+
 
 ```
 mkdir -p $HOME/.kube
@@ -72,7 +78,10 @@ Now, copy the Kubernetes configuration to your local machine:
 ```bash
 scp root@172.16.16.100:/etc/kubernetes/admin.conf ~/.kube/config
 ```
-pasword is kubeadmin
+pasword is kubeadmin :)
+
+![](20231208110903.png)
+
 
 Testing the config file: 
 
@@ -159,4 +168,3 @@ Once you take the snapshot of the cluster, you can run `vagrant up` to bring the
 By following these steps and using the provided troubleshooting guide, you can have a fully functional Kubernetes playground with one master and two worker nodes for your testing and development needs.
 
 
-test the branch
