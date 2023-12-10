@@ -41,7 +41,7 @@ and add the resource requests and limits as shown
 ```
 
 
-![](20231204200812.png)
+![](assets/20231204200812.png)
 
 </details>
 </span>
