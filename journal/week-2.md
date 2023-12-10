@@ -76,3 +76,55 @@ The nodejs app is also running on kworker1:
 
 * Vagrant snapshots helps me manage my time efficiently. 
 * Working with time constraints is a great challenge, and it often requires prioritization, efficient and focused planning. Just a simple sticky note has proven to be more efficient than a great dotted notebook.
+
+## General Notes on Containers
+
+**exit codes**
+
+* Docker isn't support on RedHat anymore, you need podman and it is installed by default or as an alternative install docker on ubuntu.
+* After editing privileges, you don't need to log out and log in to verify the new settings. You can use `newgroup ` + <your-user> to get a new shell.
+
+```sh
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+* ctrl+d, exit will stop the application, you should use ctrl+p, ctrl+q to disconnect shell.
+* a quick clarification on exit codes.. 0 is what we expect, so it means it is succesfull. Anything other than 0 indicates command failed with exit code $?.
+
+Let's run a busybox container, get a shell and exit. We will see that main application run without error.
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/9b6017f6-4847-4d85-bbf7-5a0cdb057181)
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/5c98ef68-a528-47d6-8e20-29c46152b614)
+
+
+Let's try a nodejs container that has a db dependency and stop:
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/036b7a12-b410-4af1-8d6c-bccc8b9b1b3e)
+
+Any number bigger than 128 indicates a termination signal, we sent SIGTERM explicitly by running `docker stop`
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/4d65744c-d9de-430a-8b15-a0134c3cc156)
+
+So SIGTERM is a polite way to stop a container gracefully. You can use SIGKILL if the container doesn't respond to a graceful stop request.
+
+* To inspect a container, use `docker inspect` with `| less` and search the term using `/search-term` adding `-i` for case insensitive search, moving between the pages using `space` and `b` for back a page, exiting with `q`.
+
+**docker logs**
+
+Let's run a mysql container and see what can go wrong and how we can inspect the logs.
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/4cd920a4-32fe-48f6-ad9b-461c326eb445)
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/ab32e19a-6b8a-43d7-855c-b6fa2f0c924e)
+
+Ha! Sure we need env variables. Now we know how to fix it:
+
+`docker run --name mysql -e MYSQL_ROOT_PASSWORD=my-secret -d mysql`
+
+Get the last five entry in the logs of mysql container:
+
+![image](https://github.com/colossus06/cka-ckad-study-group-2024/assets/96833570/99ab4de5-d088-46ac-9ab7-bf3a393189ff)
+
+
