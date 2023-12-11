@@ -1,4 +1,12 @@
 # Makefile for setting up Prometheus and Grafana using Helm in Kubernetes
+.PHONY: all
+
+.PHONY: stop
+
+stop: stop-monitoring-stack clean-credentials
+# Define the default target, 'all', which depends on all other targets
+all: download-helm get-nodes helm-version add-prometheus-repo create-admin-credentials create-grafana-secret describe-grafana-secret get-grafana-username get-grafana-password get-chart-values install-prometheus-grafana get-monitoring-pods
+
 
 # Download Helm installation script
 download-helm:
@@ -20,17 +28,20 @@ add-prometheus-repo:
 	helm repo update
 
 # Create a Kubernetes namespace for monitoring
-create-monitoring-namespace:
-	kubectl create namespace monitoring
+# create-monitoring-namespace:
+# 	kubectl create namespace monitoring
 
-# Create admin user and password files
 create-admin-credentials:
 	echo -n 'adminuser' > ./admin-user # change your username
 	echo -n 'p@ssword!' > ./admin-password # change your password
 
 # Create a Kubernetes secret for Grafana admin credentials
 create-grafana-secret:
-	kubectl create secret generic grafana-admin-credentials --from-file=./admin-user --from-file=admin-password -n monitoring
+	kubectl create secret generic grafana-admin-credentials \
+		--from-file=admin-user=./admin-user \
+		--from-file=admin-password=./admin-password \
+		-n monitoring
+
 
 # Display details of Grafana admin credentials secret
 describe-grafana-secret:
@@ -45,8 +56,7 @@ get-grafana-password:
 	kubectl get secret -n monitoring grafana-admin-credentials -o jsonpath="{.data.admin-password}" | base64 --decode
 
 # Remove admin user and password files
-clean-credentials:
-	rm admin-user && rm admin-password
+
 
 # Edit Prometheus Helm chart values
 get-chart-values:
@@ -59,3 +69,13 @@ install-prometheus-grafana:
 # Display Prometheus and Grafana pods in the monitoring namespace
 get-monitoring-pods:
 	kubectl get pods -n monitoring
+
+stop-monitoring-stack:
+	helm uninstall -n monitoring prometheus
+	echo "uninstalled prometheus, grafana ++++++++"
+
+
+clean-credentials:
+	# rm admin-user && rm admin-password
+	kubectl delete secret grafana-admin-credentials prometheus-admission
+	echo "secret, creds deleted++++++++"

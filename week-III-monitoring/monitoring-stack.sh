@@ -6,7 +6,8 @@ bash github-content.sh
 echo "+ + + + + + + + + + + + + + + + + + + "
 
 ### Setting the monitroing stack 
-make install-prometheus-grafana
+# make install-prometheus-grafana
+make all
 
 echo "+ + + + + + + + + + + + + + + + + + + "
 
