@@ -7,6 +7,9 @@ This guide outlines the steps to set up a monitoring stack using bash scripts an
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - A running Kubernetes cluster
 
+![](assets/20231211213231.png)
+
+
 ## Installation
 
 1. Clone the monitoring stack repository:
