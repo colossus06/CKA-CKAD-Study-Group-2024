@@ -1,8 +1,5 @@
 # Application Design and Build
 
-- [Docker Prerequisites]()
-- [Best Practices for writing Dockerfiles]()
-
 The first domain in the exam is Application Design and Build having a 20% weight. Before moving on to the next domain make sure that you're fluent with the following. 
 
 - [x] Understand, use and manage containers(registires, logging, exiting a container, ps aux, )
@@ -18,6 +15,7 @@ docker tag <current-image> <target-registry or whatever you want>
 docker build -t
 docker commit
 docker save -o myimage.tar
+docker inspect example-voting-app-result | grep -i -C 5 layers
 ```
 
 ![](20231210135612.png)
