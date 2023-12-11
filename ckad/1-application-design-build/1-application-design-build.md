@@ -1,4 +1,29 @@
-# Core-Skills
+# Application Design and Build
+
+
+The first domain in the exam is Application Design and Build having a 20% weight. Before moving on to the next domain make sure that you're fluent with the following. 
+
+
+- [x] storage and definition in pods and multiple containers
+- [x] batch, periodic workloads
+
+## Achivements
+
+We aim to achieve some operations on pod object such as the following:
+
+* creating/running (`k create <name>`, `k run <name>`, `k apply -f`)
+* creating objects from a recursive dir (`k apply -f <folder>/ -R`)
+* switching between contexts/set context (`k config set-context`)
+* editing/updating (`k edit pod`,`k patch pod`, `k apply -f`)
+* deleting (`k delete pod`)
+* listing available api versions (`k api-versions`)
+* short names for some of the resource(`k api-resources`)
+* getting info about an object(`k describe po ckad | grep -i <search-term>`)
+* finding info about a command(`k run --help`)
+* finding info about the fields of a resource(`k explain po.kind`, `k explain po.status`)
+
+![](assets/20231211171458.png)
+
 
 Let's get started with the core skills.
 
@@ -180,6 +205,58 @@ kubectl run loop --image=busybox \
   --command --  'for i in $(seq 1 10); \
   do echo "Hello $i times"; done' > pod.yaml
 ```
+
+</details>
+</span>
+
+<br>
+
+
+**7-)**
+Create a Pod named ckad that executes the container image ngnix in a container in the default namespace, and expose port 80, watch for changes.
+
+<span style="color:green;">
+<details closed>
+  <summary>
+  Answer
+  </summary>
+
+```bash
+k run ckad --image=nginx --port=80
+k get po -w
+```
+
+![](assets/20231211165852.png)
+
+![](assets/20231211165929.png)
+
+
+</details>
+</span>
+
+<br>
+
+
+**8-)**
+Create a Pod named ckad that executes the container image ngnix in a container in the default namespace, and expose port 80, watch for changes.
+
+<span style="color:green;">
+<details closed>
+  <summary>
+  Answer
+  </summary>
+
+```bash
+kubectl run ckad --image=ubuntu/apache2 --restart=Never --port=80 --dry-run=client -oyaml> apache.yaml
+```
+
+kubectl expose pod ckad --type=NodePort --port=80 --target-port=8080 --name=ckad-svc
+
+
+![](assets/20231211165852.png)
+
+![](assets/20231211165929.png)
+
 
 </details>
 </span>

@@ -1,8 +1,8 @@
-# Application Design and Build
+# Container Prerequisites
 
 The first domain in the exam is Application Design and Build having a 20% weight. Before moving on to the next domain make sure that you're fluent with the following. 
 
-- [x] Understand, use and manage containers(registires, logging, exiting a container, ps aux, )
+- [x] Understand, use and manage containers(registires, logging, exiting a container, ps aux )
 - [x] Container image architecture (tar file, layers, base image, how to reduce layers, showing the layer history, tagging )
 - [x] Writing a dockerfile (don't use multiple RUN commands rather connect them &&, using backslashes, using docker commit)
 
@@ -15,16 +15,9 @@ docker tag <current-image> <target-registry or whatever you want>
 docker build -t
 docker commit
 docker save -o myimage.tar
+docker load
 docker inspect example-voting-app-result | grep -i -C 5 layers
 ```
-
-![](20231210135612.png)
-
-
-### Questions
-
-* What is the default entrypoint of a dockerfile?
-* How can you create a custom container image?
 
 ### Best Practices for writing Dockerfiles
 
