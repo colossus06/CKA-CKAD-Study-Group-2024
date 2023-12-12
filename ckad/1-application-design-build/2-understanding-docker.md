@@ -15,7 +15,7 @@ docker tag <current-image> <target-registry or whatever you want>
 docker build -t
 docker commit
 docker save -o myimage.tar
-docker load
+docker load --input
 docker inspect example-voting-app-result | grep -i -C 5 layers
 ```
 

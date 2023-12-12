@@ -21,13 +21,15 @@ We aim to achieve some operations on pod object such as the following:
 * getting info about an object(`k describe po ckad | grep -i <search-term>`)
 * finding info about a command(`k run --help`)
 * finding info about the fields of a resource(`k explain po.kind`, `k explain po.status`)
+* starting a temporary pod(add --rm and -it)
 
-![](assets/20231211171458.png)
+![](assets/assets/20231211171458.png)
 
 
 Let's get started with the core skills.
 
 ### Set the context and the namespace.
+
 A "Context" is a combination of a cluster, user, and namespace. It is a way to specify the cluster you want to interact with, the user or authentication credentials you want to use, and the default namespace for that user. Setting a context is important because it helps you manage multiple Kubernetes clusters and switch between them easily.
 
 **Use Cases:**  Multi-cluster Management, User and Authentication, isolate and organize resources, simplifies command-line operations.
@@ -36,6 +38,7 @@ A "Context" is a combination of a cluster, user, and namespace. It is a way to s
 
 
 ## Tasks
+
 **Duration: 20 mins**
 
 **1-)** You have only one namespace called `tossi`.  Create a new namespace called `semvar`. 
@@ -226,9 +229,9 @@ k run ckad --image=nginx --port=80
 k get po -w
 ```
 
-![](assets/20231211165852.png)
+![](assets/assets/20231211165852.png)
 
-![](assets/20231211165929.png)
+![](assets/assets/20231211165929.png)
 
 
 </details>
@@ -253,10 +256,74 @@ kubectl run ckad --image=ubuntu/apache2 --restart=Never --port=80 --dry-run=clie
 kubectl expose pod ckad --type=NodePort --port=80 --target-port=8080 --name=ckad-svc
 
 
-![](assets/20231211165852.png)
+![](assets/assets/20231211165852.png)
 
-![](assets/20231211165929.png)
+![](assets/assets/20231211165929.png)
 
+
+</details>
+</span>
+
+<br>
+
+**9-)**
+Create a namespace called `mynamespace` , create an nginx pod named mynginx, name the container to mynginx-container in the mynamespace ns, expose port 80 declaratively.
+Get the IP address of the Pod, create an alias for a temporary pod named temp. Temp pod shoould connect to the pod on the exposed port. Download the content to the standard output.
+
+<span style="color:green;">
+<details closed>
+  <summary>
+  Answer
+  </summary>
+
+```bash
+touch mynamespace.yaml
+vim mynamespace.yaml
+k apply -f mynamespace.yaml
+touch mynginx.yaml
+k apply -f mynginx.yaml
+
+k config set-context --current --namespace=mynamespace
+export alias temp="kubectl run temp --image=busybox --restart=Never --rm -it"
+$temp -- wget -o- <pod-ip>:<exposed-port>
+k logs mygninx
+
+```
+![](assets/20231212172825.png)
+
+after setting my namespace:
+
+![](assets/20231212172933.png)
+
+![](assets/20231212165841.png)
+
+
+get the logs:
+
+![](assets/20231212173056.png)
+
+
+</details>
+</span>
+
+<br>
+
+
+**10-)**
+Run an nginx pod named `ng` living in `mynamespace` named ns. Don't restart it if it exits. Get a shell inside the container and display the environment variables.
+
+<span style="color:green;">
+<details closed>
+  <summary>
+  Answer
+  </summary>
+
+```bash
+k config set-context --current --namespace=mynamespace
+k run ng --image=nginx --restart=Never -it -- /bin/sh
+env
+
+```
 
 </details>
 </span>
