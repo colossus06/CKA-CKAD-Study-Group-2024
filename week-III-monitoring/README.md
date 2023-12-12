@@ -68,10 +68,10 @@ To access the Grafana dashboard, use the following credentials:
 
 Update the credentials in the `makefile` if needed.
 
-![](20231211230551.png)
+![](assets/20231211230551.png)
 
 
-![](20231211230521.png)
+![](assets/20231211230521.png)
 
 
 ## Stopping the Services
@@ -82,4 +82,4 @@ To stop the monitoring stack services and clear the secrets, run the following c
 ./stop-monitoring-stack.sh
 ```
 
-![](20231212001116.png)
+![](assets/20231212001116.png)
