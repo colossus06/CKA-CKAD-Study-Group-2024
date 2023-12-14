@@ -23,6 +23,7 @@ We aim to achieve some operations on pod object such as the following:
 * finding info about the fields of a resource(`k explain po.kind`, `k explain po.status`)
 * starting a temporary pod(add --rm and -it)
 
+
 ![](assets/assets/20231211171458.png)
 
 
@@ -39,7 +40,7 @@ A "Context" is a combination of a cluster, user, and namespace. It is a way to s
 
 ## Tasks
 
-**Duration: 20 mins**
+**Duration: 3 mins/each**
 
 **1-)** You have only one namespace called `tossi`.  Create a new namespace called `semvar`. 
 
@@ -192,31 +193,11 @@ k run sleepy-t --image=busybox $do
 
 
 
+
+
+
 **6-)**
-Create a Kubernetes Pod named "loop" in the "true-b" namespace. The Pod runs a container using the "busybox" image, with a looping script echoing "Hello $i times" for values of i from 1 to 10.
-
-<span style="color:green;">
-<details closed>
-  <summary>
-  Answer
-  </summary>
-
-```bash
-k create ns true-b
-kubectl run loop --image=busybox \
-  -n true-b $do --restart=Never \
-  --command --  'for i in $(seq 1 10); \
-  do echo "Hello $i times"; done' > pod.yaml
-```
-
-</details>
-</span>
-
-<br>
-
-
-**7-)**
-Create a Pod named ckad that executes the container image ngnix in a container in the default namespace, and expose port 80, watch for changes.
+Create a Pod named ckad running image ngnix in a container, in the default namespace, and expose port 80, watch for changes.
 
 <span style="color:green;">
 <details closed>
@@ -240,8 +221,8 @@ k get po -w
 <br>
 
 
-**8-)**
-Create a Pod named ckad that executes the container image ngnix in a container in the default namespace, and expose port 80, watch for changes.
+**7-)**
+Create a pod named ckad with the ubuntu/apache2 image, a restart policy of Never, expose port 80. Generate the YAML representation of the pod definition with yaml manifestation. Expose the ckad pod using service type of Nodeport accessible on 8080. 
 
 <span style="color:green;">
 <details closed>
@@ -251,9 +232,8 @@ Create a Pod named ckad that executes the container image ngnix in a container i
 
 ```bash
 kubectl run ckad --image=ubuntu/apache2 --restart=Never --port=80 --dry-run=client -oyaml> apache.yaml
-```
-
 kubectl expose pod ckad --type=NodePort --port=80 --target-port=8080 --name=ckad-svc
+```
 
 
 ![](assets/assets/20231211165852.png)
@@ -266,7 +246,7 @@ kubectl expose pod ckad --type=NodePort --port=80 --target-port=8080 --name=ckad
 
 <br>
 
-**9-)**
+**8-)**
 Create a namespace called `mynamespace` , create an nginx pod named mynginx, name the container to mynginx-container in the mynamespace ns, expose port 80 declaratively.
 Get the IP address of the Pod, create an alias for a temporary pod named temp. Temp pod shoould connect to the pod on the exposed port. Download the content to the standard output.
 
@@ -309,23 +289,5 @@ get the logs:
 <br>
 
 
-**10-)**
-Run an nginx pod named `ng` living in `mynamespace` named ns. Don't restart it if it exits. Get a shell inside the container and display the environment variables.
 
-<span style="color:green;">
-<details closed>
-  <summary>
-  Answer
-  </summary>
 
-```bash
-k config set-context --current --namespace=mynamespace
-k run ng --image=nginx --restart=Never -it -- /bin/sh
-env
-
-```
-
-</details>
-</span>
-
-<br>
