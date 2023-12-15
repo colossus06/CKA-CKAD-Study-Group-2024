@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/containerID: dd92fe8472a4b9434e84c02397b780572641f47c30d94fcd511d38bfeecf6628
+    cni.projectcalico.org/podIP: 10.244.120.85/32
+    cni.projectcalico.org/podIPs: 10.244.120.85/32
+  creationTimestamp: "2023-12-15T06:16:19Z"
+  labels:
+    run: cka
+  name: cka
+  namespace: default
+  resourceVersion: "35361"
+  uid: bf9f7ca3-16ef-4b09-858f-e36569505862
+spec:
+  containers:
+  - image: bitnami/nginx
+    imagePullPolicy: Always
+    name: cka
+    env:
+    - name: DB_USERNAME
+      value: adminuser
+    - name: DB_URL
+      value: sql://db:1433
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-lrdxr
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-lrdxr
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-12-15T06:16:19Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-12-15T06:16:29Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-12-15T06:16:29Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-12-15T06:16:19Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://7fa36f4f76af98a6a9bec8af0179cb9ee1b9bd3257ded3608106ea74dda14ef7
+    image: bitnami/nginx:latest
+    imageID: docker-pullable://bitnami/nginx@sha256:f38f12377ee11907fec4e2d36243fe092f1b750ebf49a75a99b46f0f9c61ecf1
+    lastState: {}
+    name: cka
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-12-15T06:16:28Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 10.244.120.85
+  podIPs:
+  - ip: 10.244.120.85
+  qosClass: BestEffort
+  startTime: "2023-12-15T06:16:19Z"

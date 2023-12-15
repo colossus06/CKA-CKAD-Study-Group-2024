@@ -1,4 +1,4 @@
-# Core Skills for the Exam
+# Core Skills
 
 * time management
 * designinng and building a containerized application
@@ -14,5 +14,12 @@ Alternatives:
     * o reilly or kodekloud integrated shells
     * killer shell (two sessions for free)
 
+
+## Application Design and Build Domains & Competencies
+
+* Define, build and modify container images
+* Choose and use the right workload resource (Deployment, DaemonSet, CronJob, etc.)
+* Understand multi-container Pod design patterns (e.g. sidecar, init and others)
+* Utilize persistent and ephemeral volumes
 
 
