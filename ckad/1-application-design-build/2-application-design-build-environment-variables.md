@@ -12,6 +12,11 @@ The first domain in the exam is Application Design and Build having a 20% weight
 * getting a shell in the container(`k exec -it <pod-name> -- /bin/bash`)
 * run a command in the container without getting a shell(`k exec <pod-name> -- date`)
 
+
+## Tasks
+
+**Duration: 10 mins**
+
 **1-)** Create an nginx pod using YAML that runs the command "env" and display the logs.
 
 <span style="color:green;">
@@ -26,7 +31,7 @@ k logs nginx
 
 ```
 
-![](20231214124611.png)
+![](assets/20231214124611.png)
 
 </details>
 </span>
@@ -47,9 +52,9 @@ k run bbox --image=busybox --restart=Never --dry-run=client -oyaml -- /bin/sh -c
 ml
 ```
 
-![](20231214125455.png)
+![](assets/20231214125455.png)
 
-![](20231214125019.png)
+![](assets/20231214125019.png)
 
 </details>
 </span>
