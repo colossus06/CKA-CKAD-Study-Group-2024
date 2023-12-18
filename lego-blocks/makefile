@@ -3,7 +3,7 @@
 
 .PHONY: stop
 
-stop: stop-monitoring-stack clean-credentials
+stop: remove-admin-creds stop-monitoring-stack clean-credentials
 # Define the default target, 'all', which depends on all other targets
 all: create-ns get-nodes helm-version add-prometheus-repo create-admin-credentials create-grafana-secret describe-grafana-secret get-grafana-username get-grafana-password get-chart-values install-prometheus-grafana get-monitoring-pods
 
@@ -81,3 +81,6 @@ clean-credentials:
 	# rm admin-user && rm admin-password
 	kubectl delete secret grafana-admin-credentials prometheus-admission
 	echo "secret, creds deleted++++++++"
+
+remove-admin-creds:
+	rm admin-password admin-user
