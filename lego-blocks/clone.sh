@@ -3,7 +3,7 @@
 # cd cka-ckad-study-group-2024/lego-blocks/
 # chmod +x ./
 kubectl get nodes -owide
-kubectl taint nodes control-plane node-role.kubernetes.io/master-
+kubectl taint nodes controlplane node-role.kubernetes.io/master-
 echo "untainted master node"
 ./ns.sh
 ./monitoring-stack.sh

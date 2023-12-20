@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-deploy
+  namespace: monitoring
+  labels:
+    name: voting-app-deploy
+    app: cka-ckad-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: voting-app-pod
+      app: cka-ckad-voting-app
+  template:
+    metadata:
+      name: voting-app-pod
+      namespace: monitoring
+      labels:
+        name: voting-app-pod
+        app: cka-ckad-voting-app
+    spec:
+      containers:
+      - name: voting-app
+        image: elkakimmie/voting_app:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports: 
+          - containerPort: 80

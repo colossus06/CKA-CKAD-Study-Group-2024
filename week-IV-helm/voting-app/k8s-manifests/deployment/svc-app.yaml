@@ -1,0 +1,18 @@
+# remember that we need a NodePort for python app
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-service
+  namespace: monitoring
+  labels:
+    name: voting-service
+    app: cka-ckad-voting-app
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30004
+  selector:
+    name: voting-app-pod
+    app: cka-ckad-voting-app

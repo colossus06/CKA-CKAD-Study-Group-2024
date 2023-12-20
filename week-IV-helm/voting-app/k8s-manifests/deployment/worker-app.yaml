@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deploy
+  namespace: monitoring
+  labels:
+    name: worker-deploy
+    app: cka-ckad-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker-pod
+      app: cka-ckad-voting-app
+  template:
+    metadata:
+      name: worker-pod
+      labels:
+        name: worker-pod
+        app: cka-ckad-voting-app
+    spec:
+      containers:
+      - name: worker-app
+        image: elkakimmie/voting_app_worker:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        # remove the port section
