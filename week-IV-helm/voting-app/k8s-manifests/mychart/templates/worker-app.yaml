@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mychart.fullname" . }}-worker-deploy
+  labels:
+    app: cka-ckad-voting-app
+    name: worker-deploy
+  {{- include "mychart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.workerDeploy.replicas }}
+  selector:
+    matchLabels:
+      app: cka-ckad-voting-app
+      name: worker-pod
+    {{- include "mychart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: cka-ckad-voting-app
+        name: worker-pod
+      {{- include "mychart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.workerDeploy.workerApp.image.repository }}:{{ .Values.workerDeploy.workerApp.image.tag
+          | default .Chart.AppVersion }}
+        name: worker-app
+        resources: {{- toYaml .Values.workerDeploy.workerApp.resources | nindent 10 }}

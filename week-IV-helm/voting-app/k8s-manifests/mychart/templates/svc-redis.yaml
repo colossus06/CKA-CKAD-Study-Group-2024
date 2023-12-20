@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mychart.fullname" . }}-redis
+  labels:
+    app: cka-ckad-voting-app
+    name: redis-service
+  {{- include "mychart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.redis.type }}
+  selector:
+    app: cka-ckad-voting-app
+    name: redis-pod
+  {{- include "mychart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.redis.ports | toYaml | nindent 2 -}}

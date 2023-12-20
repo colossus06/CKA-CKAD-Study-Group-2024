@@ -1,0 +1,76 @@
+db:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
+kubernetesClusterDomain: cluster.local
+postgresDeploy:
+  postgres:
+    env:
+      postgresPassword: postgres
+      postgresUser: postgres
+    image:
+      repository: postgres
+      tag: latest
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi
+  replicas: 1
+redis:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  type: ClusterIP
+redisDeploy:
+  redis:
+    image:
+      repository: redis
+      tag: latest
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi
+  replicas: 1
+resultDeploy:
+  replicas: 1
+  resultApp:
+    image:
+      repository: elkakimmie/voting_app_result
+      tag: latest
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi
+resultService:
+  ports:
+  - nodePort: 30005
+    port: 80
+    targetPort: 80
+  type: NodePort
+votingAppDeploy:
+  replicas: 1
+  votingApp:
+    image:
+      repository: elkakimmie/voting_app
+      tag: latest
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi
+votingService:
+  ports:
+  - nodePort: 30004
+    port: 80
+    targetPort: 80
+  type: NodePort
+workerDeploy:
+  replicas: 1
+  workerApp:
+    image:
+      repository: elkakimmie/voting_app_worker
+      tag: latest
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi

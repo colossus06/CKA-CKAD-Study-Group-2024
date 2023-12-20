@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mychart.fullname" . }}-redis-deploy
+  labels:
+    app: cka-ckad-voting-app
+    name: redis-deploy
+  {{- include "mychart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.redisDeploy.replicas }}
+  selector:
+    matchLabels:
+      app: cka-ckad-voting-app
+      name: redis-pod
+    {{- include "mychart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: cka-ckad-voting-app
+        name: redis-pod
+      {{- include "mychart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.redisDeploy.redis.image.repository }}:{{ .Values.redisDeploy.redis.image.tag
+          | default .Chart.AppVersion }}
+        name: redis
+        ports:
+        - containerPort: 6379
+        resources: {{- toYaml .Values.redisDeploy.redis.resources | nindent 10 }}
