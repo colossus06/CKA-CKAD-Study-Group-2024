@@ -15,7 +15,6 @@ spec:
   template:
     metadata:
       name: postgres-pod
-      namespace: monitoring
       labels:
         name: postgres-pod
         app: cka-ckad-voting-app
@@ -31,9 +30,26 @@ spec:
         # default port of psql image
           - containerPort: 5432
         # worker and result pods need these creds
+        # env:
+        #   - name: POSTGRES_USER
+        #     value: "postgres"
+        #   - name: POSTGRES_PASSWORD
+        #     value: "postgres"
         env:
-          - name: POSTGRES_USER
-            value: "postgres"
-          - name: POSTGRES_PASSWORD
-            value: "postgres"
-        
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: db-cm
+              key: POSTGRES_USER
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: postgredb-mount
+      volumes:
+        - name: postgredb-mount
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim

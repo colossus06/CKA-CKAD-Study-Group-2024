@@ -15,7 +15,6 @@ spec:
   template:
     metadata:
       name: result-app-result-pod
-      namespace: monitoring
       labels:
         name: result-app-result-pod
         app: cka-ckad-voting-app

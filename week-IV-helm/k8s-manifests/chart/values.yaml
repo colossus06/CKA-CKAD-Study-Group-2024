@@ -3,12 +3,13 @@ db:
   - port: 5432
     targetPort: 5432
   type: ClusterIP
+dbCm:
+  postgresUser: postgres
+dbSecret:
+  postgresPassword: "postgres"
 kubernetesClusterDomain: cluster.local
 postgresDeploy:
   postgres:
-    env:
-      postgresPassword: postgres
-      postgresUser: postgres
     image:
       repository: postgres
       tag: latest
@@ -17,6 +18,10 @@ postgresDeploy:
         cpu: 250m
         memory: 128Mi
   replicas: 1
+pvc:
+  postgresPvClaim:
+    storageClass: manual
+    storageRequest: 5Gi
 redis:
   ports:
   - port: 6379

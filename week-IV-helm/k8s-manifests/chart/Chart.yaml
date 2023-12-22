@@ -1,0 +1,6 @@
+apiVersion: v2
+name: voting-app-sg
+description: A Helm chart for CKA CKAD Study Group
+type: application
+version: 0.1.1
+appVersion: "0.1.0"

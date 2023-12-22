@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mychart.fullname" . }}-worker-deploy
+  name: worker-deploy
   labels:
     app: cka-ckad-voting-app
     name: worker-deploy
-  {{- include "mychart.labels" . | nindent 4 }}
+  {{- include "chart.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.workerDeploy.replicas }}
   selector:
     matchLabels:
       app: cka-ckad-voting-app
       name: worker-pod
-    {{- include "mychart.selectorLabels" . | nindent 6 }}
+    {{- include "chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: cka-ckad-voting-app
         name: worker-pod
-      {{- include "mychart.selectorLabels" . | nindent 8 }}
+      {{- include "chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:

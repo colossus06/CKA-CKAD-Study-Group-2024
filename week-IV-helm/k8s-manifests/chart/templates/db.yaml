@@ -1,31 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "mychart.fullname" . }}-postgres-deploy
+  name: postgres-deploy
   labels:
     app: cka-ckad-voting-app
     name: postgres-deploy
-  {{- include "mychart.labels" . | nindent 4 }}
+  {{- include "chart.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.postgresDeploy.replicas }}
   selector:
     matchLabels:
       app: cka-ckad-voting-app
       name: postgres-pod
-    {{- include "mychart.selectorLabels" . | nindent 6 }}
+    {{- include "chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: cka-ckad-voting-app
         name: postgres-pod
-      {{- include "mychart.selectorLabels" . | nindent 8 }}
+      {{- include "chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:
-        - name: POSTGRES_USER
-          value: {{ quote .Values.postgresDeploy.postgres.env.postgresUser }}
         - name: POSTGRES_PASSWORD
-          value: {{ quote .Values.postgresDeploy.postgres.env.postgresPassword }}
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: db-secret
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: db-cm
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
         image: {{ .Values.postgresDeploy.postgres.image.repository }}:{{ .Values.postgresDeploy.postgres.image.tag
@@ -34,3 +40,10 @@ spec:
         ports:
         - containerPort: 5432
         resources: {{- toYaml .Values.postgresDeploy.postgres.resources | nindent 10 }}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgredb-mount
+      volumes:
+      - name: postgredb-mount
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim

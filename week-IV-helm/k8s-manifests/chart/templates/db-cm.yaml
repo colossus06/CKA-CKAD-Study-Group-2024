@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-cm
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
+data:
+  POSTGRES_USER: {{ .Values.dbCm.postgresUser | quote }}
