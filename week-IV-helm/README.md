@@ -33,7 +33,7 @@ Make sure you have helm installed.
 
 ```sh
 helm list
-helm pull oci://registry-1.docker.io/elkakimmie/voting-app-sg --version 0.1.1
-helm install voting-app-helm oci://registry-1.docker.io/elkakimmie/voting-app-sg --version 0.1.1
+helm pull oci://registry-1.docker.io/elkakimmie/cka-ckad-sg --version 0.1.0
+helm install sg oci://registry-1.docker.io/elkakimmie/cka-ckad-sg --version 0.1.0
 ```
 

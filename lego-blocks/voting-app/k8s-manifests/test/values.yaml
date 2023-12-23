@@ -1,0 +1,23 @@
+db:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
+kubernetesClusterDomain: cluster.local
+redis:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  type: ClusterIP
+resultService:
+  ports:
+  - nodePort: 30005
+    port: 80
+    targetPort: 80
+  type: NodePort
+votingService:
+  ports:
+  - nodePort: 30004
+    port: 80
+    targetPort: 80
+  type: NodePort
