@@ -3,6 +3,4 @@ data:
   POSTGRES_USER: postgres
 kind: ConfigMap
 metadata:
-  creationTimestamp: null
   name: db-cm
-  namespace: monitoring

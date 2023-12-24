@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-deploy
-  namespace: monitoring
   labels:
     name: postgres-deploy
     app: cka-ckad-voting-app
@@ -46,10 +45,10 @@ spec:
             configMapKeyRef:
               name: db-cm
               key: POSTGRES_USER
-        volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: postgredb-mount
-      volumes:
-        - name: postgredb-mount
-          persistentVolumeClaim:
-            claimName: postgres-pv-claim
+      #   volumeMounts:
+      #     - mountPath: /var/lib/postgresql/data
+      #       name: postgredb-mount
+      # volumes:
+      #   - name: postgredb-mount
+      #     persistentVolumeClaim:
+      #       claimName: postgres-pv-claim

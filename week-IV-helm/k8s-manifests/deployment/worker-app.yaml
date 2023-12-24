@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker-deploy
-  namespace: monitoring
   labels:
     name: worker-deploy
     app: cka-ckad-voting-app

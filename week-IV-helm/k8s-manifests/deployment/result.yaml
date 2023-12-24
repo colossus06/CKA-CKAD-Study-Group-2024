@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: result-deploy
-  namespace: monitoring
   labels:
     name: result-deploy
     app: cka-ckad-voting-app
@@ -28,4 +27,3 @@ spec:
             cpu: "250m"
         ports:
           - containerPort: 80
-

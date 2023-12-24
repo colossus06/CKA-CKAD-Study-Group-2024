@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: voting-app-deploy
-  namespace: monitoring
   labels:
     name: voting-app-deploy
     app: cka-ckad-voting-app
@@ -15,7 +14,6 @@ spec:
   template:
     metadata:
       name: voting-app-pod
-      namespace: monitoring
       labels:
         name: voting-app-pod
         app: cka-ckad-voting-app

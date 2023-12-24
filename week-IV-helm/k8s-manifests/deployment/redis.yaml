@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-deploy
-  namespace: monitoring
   labels:
     name: redis-deploy
     app: cka-ckad-voting-app
