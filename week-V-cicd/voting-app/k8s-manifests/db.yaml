@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+  namespace: monitoring
+  labels:
+    name: postgres-pod
+    app: cka-ckad-voting-app
+spec:
+  containers:
+  - name: postgres
+    image: postgres
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+    # default port of psql image
+      - containerPort: 5432
+    # worker and result pods need these creds
+    env:
+      - name: POSTGRES_USER
+        value: "postgres"
+      - name: POSTGRES_PASSWORD
+        value: "postgres"
+    
+
+    # todo add secrets, vaults

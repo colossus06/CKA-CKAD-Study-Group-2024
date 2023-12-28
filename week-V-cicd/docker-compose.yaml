@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  jenkins_master:
+    image: jenkins/jenkins:lts
+    container_name: jenkins_master
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+
+  jenkins_slave:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    container_name: jenkins_slave
+    ports:
+      - "8081:8080"
+      - "50001:50000" # Change the port for the slave to avoid conflict
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+volumes:
+  jenkins_home:

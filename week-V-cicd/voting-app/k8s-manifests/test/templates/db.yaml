@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+  labels:
+    app: cka-ckad-voting-app
+    name: postgres-pod
+  {{- include "test.labels" . | nindent 4 }}
+spec:
+  containers:
+  - env:
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: postgres
+    image: postgres
+    name: postgres
+    ports:
+    - containerPort: 5432
+    resources:
+      limits:
+        cpu: 250m
+        memory: 128Mi

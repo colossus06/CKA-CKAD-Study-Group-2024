@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+  namespace: monitoring
+  labels:
+    name: redis-pod
+    app: cka-ckad-voting-app
+spec:
+  containers:
+  - name: redis
+    image: redis
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "250m"
+    ports:
+    # default port of redis image
+      - containerPort: 6379
