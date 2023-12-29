@@ -14,14 +14,21 @@ pipeline {
         //     sh "${scannerHome}/bin/sonar-scanner"
         //     }
         // }
-        stage("build & SonarQube analysis") {
+        // stage("build & SonarQube analysis") {
+        //     // def scannerHome = tool 'sonar';
+        //     steps {
+        //          script{
+        //             withSonarQubeEnv(credentialsId: 'sonar') {
+        //             sh "${scannerHome}/bin/sonar-scanner"
+        //             }
+        //         }
+        //     }
+        // }
+        stage('SonarQube analysis') {
             def scannerHome = tool 'sonar';
-            steps {
-                 script{
-                    withSonarQubeEnv(credentialsId: 'sonar') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
+            withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner " +
+            "-Dsonar.projectKey=test "
             }
         }
         // stage('Build docker image and push to nexus'){
