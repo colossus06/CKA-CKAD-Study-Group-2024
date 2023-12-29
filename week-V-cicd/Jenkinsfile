@@ -19,7 +19,7 @@ pipeline {
             steps {
                  script{
                     withSonarQubeEnv(credentialsId: 'sonar') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        sh "sonar-scanner.bat -D"sonar.projectKey=test" -D"sonar.sources=." -D"sonar.host.url=http://localhost:8084" -D"sonar.token=sonar""
                     }
                 }
             }
