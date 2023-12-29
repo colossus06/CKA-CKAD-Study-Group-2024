@@ -14,8 +14,7 @@ pipeline {
         //     sh "${scannerHome}/bin/sonar-scanner"
         //     }
         // }
-        stage("build & SonarQube analysis") {
-            // def scannerHome = tool 'sonar';
+        stage("java home") {
             steps {
                  script{
                     sh "printenv"
