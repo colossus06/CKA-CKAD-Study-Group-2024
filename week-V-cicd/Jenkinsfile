@@ -27,6 +27,7 @@ pipeline {
                                 -Dsonar.host.url=http://localhost:8084 \
                                 -Dsonar.analysis.mode=issues \
                                 -Dsonar.token=sonar
+                            echo $?
                         '''
                     }
                 }
