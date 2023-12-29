@@ -25,6 +25,7 @@ pipeline {
                                 -Dsonar.projectKey=test \
                                 -Dsonar.sources=. \
                                 -Dsonar.host.url=http://localhost:8084 \
+                                -Dsonar.analysis.mode= \
                                 -Dsonar.token=sonar
                         '''
                     }
