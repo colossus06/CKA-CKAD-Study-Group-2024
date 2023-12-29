@@ -8,5 +8,20 @@ pipeline {
                 }
             }
         }
+        stage('Build docker image and push to nexus'){
+            steps{
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PSW', usernameVariable: 'USER')]) {
+                        sh '''
+                        echo ${PSW} | docker login -u ${USER} --password-stdin ${registry}
+                        docker build -t 127.0.0.1:8086/springboot:${VERSION} .
+                        
+                        docker push 127.0.0.1:8086/springboot:${VERSION}
+                        docker rmi 127.0.0.1:8086/springboot:${VERSION}
+                        '''
+                    }
+                }
+            }
+        }
     }
 }
