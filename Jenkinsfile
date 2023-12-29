@@ -9,7 +9,9 @@ pipeline {
             }
         }
         stage('checking the path') {
-            sh "pwd"
+            steps {
+                sh "pwd"
+            }
             }
         }
         // stage('SonarQube Analysis') {
