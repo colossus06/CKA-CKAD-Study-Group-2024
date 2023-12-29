@@ -13,6 +13,8 @@ pipeline {
                 sh "pwd"
                 }
             }
+
+            // /var/jenkins_home/workspace/test-connection/week-V-cicd/Jenkinsfile
      
         // stage('SonarQube Analysis') {
         //     def scannerHome = tool 'sonar';

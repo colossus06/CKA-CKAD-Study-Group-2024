@@ -8,10 +8,20 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Analysis') {
+        // stage('SonarQube Analysis') {
+        //     def scannerHome = tool 'sonar';
+        //     withSonarQubeEnv() {
+        //     sh "${scannerHome}/bin/sonar-scanner"
+        //     }
+        // }
+        stage("build & SonarQube analysis") {
             def scannerHome = tool 'sonar';
-            withSonarQubeEnv() {
-            sh "${scannerHome}/bin/sonar-scanner"
+            steps {
+                 script{
+                    withSonarQubeEnv(credentialsId: 'sonar') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
             }
         }
         // stage('Build docker image and push to nexus'){
