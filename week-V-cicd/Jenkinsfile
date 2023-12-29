@@ -19,7 +19,6 @@ pipeline {
             steps {
                  script{
                     withSonarQubeEnv(credentialsId: 'sonar') {
-                        sh "pwd"
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
