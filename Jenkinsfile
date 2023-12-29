@@ -11,7 +11,7 @@ pipeline {
         stage('checking the path') {
             steps {
                 sh "pwd"
-            }
+                }
             }
         }
         // stage('SonarQube Analysis') {
