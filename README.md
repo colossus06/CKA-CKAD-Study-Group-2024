@@ -28,10 +28,43 @@ Welcome to our **CKA/CKAD** study group repository! 🚀 This space is dedicated
 ### CKAD Curriculum
 
 * **20%: Application Design and Build**
+   
+   * Define, build and modify container images
+   * Choose and use the right workload resource (Deployment, DaemonSet, CronJob, etc.)
+   * Understand multi-container Pod design patterns (e.g. sidecar, init and others)
+   * Utilize persistent and ephemeral volumes
+     
 * **20%: Application Deployment**
+
+   * Use Kubernetes primitives to implement common deployment strategies (e.g. blue/green or canary)
+   * Understand Deployments and how to perform rolling updates
+   * Use the Helm package manager to deploy existing packages
+   * Kustomize
+     
+* **15%: Application Observability and Maintenance**
+
+   * Understand API deprecations
+   * Implement probes and health checks
+   * Use built-in CLI tools to monitor Kubernetes applications
+   * Utilize container logs
+   * Debugging in Kubernetes
+     
 * **25%: Application Environment, Configuration and Security**
+
+   * Discover and use resources that extend Kubernetes (CRD, Operators)
+   * Understand authentication, authorization and admission control
+   * Understand Requests, limits, quotas
+   * Understand ConfigMaps
+   * Define resource requirements
+   * Create & consume Secrets
+   * Understand ServiceAccounts
+   * Understand Application Security (SecurityContexts, Capabilities, etc.)
+     
 * **20%: Services & Networking**
 
+   * Demonstrate basic understanding of NetworkPolicies
+   * Provide and troubleshoot access to applications via services
+   * Use Ingress rules to expose applications
 
 ### CKA Curriculum
 <!-- todo edit cka curriculum domain weights like in the ckad curriculum -->
