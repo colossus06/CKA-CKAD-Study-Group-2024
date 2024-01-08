@@ -35,6 +35,7 @@ Make sure you have helm installed.
 helm list
 helm repo add voting-app https://colossus06.github.io/cka-ckad-study-group-2024/
 helm repo update
-helm install voting-app voting-app/voting-app-sg
+helm search repo voting-app
+helm install voting-app voting-app/voting-app-sg 
 ```
 

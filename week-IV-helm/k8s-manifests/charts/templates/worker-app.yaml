@@ -5,20 +5,20 @@ metadata:
   labels:
     app: cka-ckad-voting-app
     name: worker-deploy
-  {{- include "chart.labels" . | nindent 4 }}
+  {{- include "charts.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.workerDeploy.replicas }}
   selector:
     matchLabels:
       app: cka-ckad-voting-app
       name: worker-pod
-    {{- include "chart.selectorLabels" . | nindent 6 }}
+    {{- include "charts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: cka-ckad-voting-app
         name: worker-pod
-      {{- include "chart.selectorLabels" . | nindent 8 }}
+      {{- include "charts.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:

@@ -18,10 +18,6 @@ postgresDeploy:
         cpu: 250m
         memory: 128Mi
   replicas: 1
-pvc:
-  postgresPvClaim:
-    storageClass: manual
-    storageRequest: 5Gi
 redis:
   ports:
   - port: 6379

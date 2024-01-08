@@ -5,12 +5,12 @@ metadata:
   labels:
     app: cka-ckad-voting-app
     name: redis-service
-  {{- include "chart.labels" . | nindent 4 }}
+  {{- include "charts.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.redis.type }}
   selector:
     app: cka-ckad-voting-app
     name: redis-pod
-  {{- include "chart.selectorLabels" . | nindent 4 }}
+  {{- include "charts.selectorLabels" . | nindent 4 }}
   ports:
 	{{- .Values.redis.ports | toYaml | nindent 2 -}}

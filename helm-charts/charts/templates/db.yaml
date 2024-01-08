@@ -5,20 +5,20 @@ metadata:
   labels:
     app: cka-ckad-voting-app
     name: postgres-deploy
-  {{- include "chart.labels" . | nindent 4 }}
+  {{- include "charts.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.postgresDeploy.replicas }}
   selector:
     matchLabels:
       app: cka-ckad-voting-app
       name: postgres-pod
-    {{- include "chart.selectorLabels" . | nindent 6 }}
+    {{- include "charts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: cka-ckad-voting-app
         name: postgres-pod
-      {{- include "chart.selectorLabels" . | nindent 8 }}
+      {{- include "charts.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:
@@ -40,10 +40,3 @@ spec:
         ports:
         - containerPort: 5432
         resources: {{- toYaml .Values.postgresDeploy.postgres.resources | nindent 10 }}
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgredb-mount
-      volumes:
-      - name: postgredb-mount
-        persistentVolumeClaim:
-          claimName: postgres-pv-claim
