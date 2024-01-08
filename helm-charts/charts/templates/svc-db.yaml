@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: cka-ckad-voting-app
+    name: db-service
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.db.type }}
+  selector:
+    app: cka-ckad-voting-app
+    name: postgres-pod
+  {{- include "chart.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.db.ports | toYaml | nindent 2 -}}
