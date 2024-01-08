@@ -33,7 +33,8 @@ Make sure you have helm installed.
 
 ```sh
 helm list
-helm pull oci://registry-1.docker.io/elkakimmie/cka-ckad-sg --version 0.1.0
-helm install voting-app oci://registry-1.docker.io/elkakimmie/cka-ckad-sg --version 0.1.0
+helm repo add voting-app https://colossus06.github.io/cka-ckad-study-group-2024/
+helm repo update
+helm install voting-app voting-app/voting-app-sg
 ```
 
