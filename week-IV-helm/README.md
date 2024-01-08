@@ -36,6 +36,6 @@ helm list
 helm repo add voting-app https://colossus06.github.io/cka-ckad-study-group-2024/
 helm repo update
 helm search repo voting-app
-helm install voting-app voting-app/voting-app-sg 
+helm install [release-name] voting-app/voting-app
 ```
 
