@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  voting-app-sg:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2024-01-08T15:33:45.656603959Z"
+    description: A Helm chart for CKA CKAD Study Group test
+    digest: 641e4337c9222a322acbf76964c099c243f7baf8491a144447148677a5d350a5
+    name: voting-app-sg
+    type: application
+    urls:
+    - https://github.com/colossus06/cka-ckad-study-group-2024/releases/download/voting-app-sg-0.1.1/voting-app-sg-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-01-08T15:33:45.656609399Z"
