@@ -12,3 +12,5 @@ Read the Docs can host multiple versions of your docs. Keep your 1.0 and 2.0 doc
 
 💓 Open source and user focused
 Our company is bootstrapped and 100% user-focused, so our product gets better for our users instead of our investors. Read the Docs Community hosts documentation for over 100,000 large and small open source projects. Read the Docs for Business supports hundreds of organizations with product and internal documentation. Learn more about our two platforms.
+
+##
