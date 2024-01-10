@@ -12,6 +12,6 @@ make all
 echo "+ + + + + + + + + + + + + + + + + + + "
 
 ### Get the cluster 
-kubectl get pods -n monitoring 
+kubectl get pods
 
 

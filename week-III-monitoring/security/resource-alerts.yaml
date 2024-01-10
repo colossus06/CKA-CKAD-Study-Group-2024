@@ -1,0 +1,56 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: example-rules
+    role: alert-rules
+  name: prom-resource
+spec:
+  groups:
+    - name: NodeDown
+      rules:
+      # Alert for any instance that is unreachable for >5 minutes.
+      - alert: InstanceDown
+        expr: up{job="kubernetes-nodes"} == 0
+        for: 2m
+        labels:
+          severity: page
+        annotations:
+          host: "{{ $labels.kubernetes_io_hostname }}"
+          summary: "Instance down"
+          description: "Node {{ $labels.kubernetes_io_hostname  }}has been down for more than 5 minutes."
+    - name: low_memory_alert
+      rules:
+      - alert: LowMemory
+        expr: (node_memory_MemAvailable_bytes /  node_memory_MemTotal_bytes) * 100 < 85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          host: "{{ $labels.kubernetes_node  }}"
+          summary: "{{ $labels.kubernetes_node }} Host is low on memory.  Only {{ $value }}% left"
+          description: "{{ $labels.kubernetes_node }}  node is low on memory.  Only {{ $value }}% left"
+      - alert: KubePersistentVolumeErrors
+        expr: kube_persistentvolume_status_phase{job="kubernetes-service-endpoints",phase=~"Failed|Pending"} > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          description: The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}.
+          summary: PersistentVolume is having issues with provisioning.
+      - alert: KubePodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total{job="kubernetes-service-endpoints",namespace=~".*"}[5m]) * 60 * 5 > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          description: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+          summary: Pod is crash looping.
+      - alert: KubePodNotReady
+        expr: sum by(namespace, pod) (max by(namespace, pod) (kube_pod_status_phase{job="kubernetes-service-endpoints",namespace=~".*",phase=~"Pending|Unknown"}) * on(namespace, pod)    group_left(owner_kind) topk by(namespace, pod) (1, max by(namespace, pod, owner_kind) (kube_pod_owner{owner_kind!="Job"}))) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          description: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 5 minutes.
+          summary: Pod has been in a non-ready state for more than 2 minutes.

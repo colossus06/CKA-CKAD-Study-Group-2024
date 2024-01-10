@@ -22,6 +22,21 @@ Get the node ips and pods:
 
 ## Week III
 
+
+**testing with an nginx deployment**
+
+
+```sh
+k create deployment nginx --image=nginx
+kubectl expose deploy nginx --type=NodePort --port 80
+k port-forward $(kubectl get po | grep nginx | awk '{print $1}') 8080:80
+```
+
+
+
+
+**testing the monitoring stack with the 6 node cluster**
+
 Activate the monitoring stack running:
 
 ```sh
@@ -31,7 +46,11 @@ Activate the monitoring stack running:
 - **Username:** adminuser
 - **Password:** p@ssword!
 
-`kubectl port-forward $(kubectl get po -n monitoring | grep grafana | awk '{print $1}') 5200:3000``
+`kubectl port-forward $(kubectl get po -n monitoring | grep grafana | awk '{print $1}') 5200:3000`
+`kubectl port-forward  pod/prometheus-prometheus-prometheus-0 5203:9090`
+
+
+`k port-forward service/voting-service 30004:80 -n default`
 
 ## Week IV
 
@@ -45,8 +64,6 @@ helm search repo voting-app
 helm install [release-name] voting-app/voting-app 
 ```
 
-
-k port-forward service/voting-service 30004:30004
 
 
 ## Week V

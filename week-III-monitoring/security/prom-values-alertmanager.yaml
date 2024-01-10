@@ -1,0 +1,65 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    ruleSelector:
+       matchExpressions:
+        - key: prometheus
+          operator: In
+          values:
+          - example-rules
+grafana:
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-loki-distributed-query-frontend.monitoring:3100
+
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+      slack_api_url: ""
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 2m
+      receiver: 'slack'
+      routes:
+      - match:
+          alertname: DeadMansSwitch
+        receiver: 'gmail-notifications'
+      - match:
+        receiver: 'slack'
+        continue: true
+    receivers:
+    - name: 'gmail-notifications'
+      email_configs:
+      - to: 
+        from:  # Update your from mail id here
+        smarthost: smtp.gmail.com:587
+        auth_username:  # Update your from mail id here
+        auth_identity:  # Update your from mail id here
+        auth_password:  # Update your app-password here
+        send_resolved: true
+        headers:
+          subject: " Prometheus -  Alert  "
+        text: "{{ range .Alerts }} Hi, \n{{ .Annotations.summary }}  \n {{ .Annotations.description }} {{end}} "
+    - name: 'slack'
+      slack_configs:
+      - channel: '#'
+        send_resolved: true
+        title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Monitoring Event Notification'
+        text: >-
+          {{ range .Alerts }}
+            *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+            *Description:* {{ .Annotations.description }}
+            *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+            *Details:*
+            {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+            {{ end }}
+          {{ end }}
