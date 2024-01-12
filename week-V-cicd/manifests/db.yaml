@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deploy
+  labels:
+    name: postgres-deploy
+    app: cka-ckad-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres-pod
+      app: cka-ckad-voting-app
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        name: postgres-pod
+        app: cka-ckad-voting-app
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        # default port of psql image
+          - containerPort: 5432
+        # worker and result pods need these creds
+        # env:
+        #   - name: POSTGRES_USER
+        #     value: "postgres"
+        #   - name: POSTGRES_PASSWORD
+        #     value: "postgres"
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: db-cm
+              key: POSTGRES_USER
+      #   volumeMounts:
+      #     - mountPath: /var/lib/postgresql/data
+      #       name: postgredb-mount
+      # volumes:
+      #   - name: postgredb-mount
+      #     persistentVolumeClaim:
+      #       claimName: postgres-pv-claim
