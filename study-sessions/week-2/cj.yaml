@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: ping
+  namespace: blog
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: ping
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - wget devtechops.dev
+            image: busybox
+            name: ping
+            resources: {}
+          restartPolicy: Never
+  schedule: '*/1 * * * *'
+status: {}
