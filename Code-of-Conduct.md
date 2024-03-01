@@ -6,7 +6,7 @@ This code of conduct outlines our commitment to creating a welcoming and inclusi
 
 **Our Values:**
 
-* **Respect:** We treat each other with courtesy and respect, regardless of background, experience level, or opinion.
+* **Respect:** We treat each other with courtesy and respect, regardless of background, experience level, or opinion. Be respectful of others' opinions, even if you disagree.
 * **Empathy:** We actively listen to each other and strive to understand different perspectives.
 * **Kindness:** We consider the impact of our words and actions on others and choose to be kind and supportive.
 * **Inclusivity:** We actively welcome and support people of all backgrounds and experiences.
@@ -36,3 +36,4 @@ We reserve the right to take appropriate action in response to any behavior that
 * You can tailor this code of conduct further by adding specific details relevant to your group, such as meeting guidelines or communication channels for reporting concerns.
 * Consider creating a safe space within the group where members can openly discuss any concerns or issues related to the code of conduct.
 * Regularly review and adapt the code of conduct as needed based on your group's needs and experiences.
+* In an effort to maintain a respectful and collaborative learning environment, we encourage everyone to minimize the use of bold formatting in their communication within the group. While bold text can be used for emphasis, it can sometimes be misconstrued as arguing a point or being overly assertive. To promote open and respectful communication, we suggest using alternatives such as:
