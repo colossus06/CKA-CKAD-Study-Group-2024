@@ -37,3 +37,8 @@ We reserve the right to take appropriate action in response to any behavior that
 * Consider creating a safe space within the group where members can openly discuss any concerns or issues related to the code of conduct.
 * Regularly review and adapt the code of conduct as needed based on your group's needs and experiences.
 * In an effort to maintain a respectful and collaborative learning environment, we encourage everyone to minimize the use of bold formatting in their communication within the group. While bold text can be used for emphasis, it can sometimes be misconstrued as arguing a point or being overly assertive. To promote open and respectful communication, we suggest using alternatives such as:
+    * Italics (_ or )
+    * Underlines (_ or __)
+    * Clear and concise phrasing
+      
+By focusing on these alternatives, we can ensure our communication remains clear, respectful, and fosters a positive learning environment for everyone.
