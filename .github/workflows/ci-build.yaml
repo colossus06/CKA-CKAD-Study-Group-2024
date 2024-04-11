@@ -1,0 +1,83 @@
+name: Build, Push, and Deploy Docker Image to DOCKER
+
+on:
+  push:
+    branches:
+      # - dev
+      # - stage
+  
+jobs:
+  build_push_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Dynamically setting ENV variables
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "env=prod" >> $GITHUB_ENV
+            UPDATED_IMAGE_NAME=$(echo "${{ vars.IMAGE_NAME }}" | sed 's/env/prod/')
+            echo "UPDATED_IMAGE_NAME=$UPDATED_IMAGE_NAME" >> $GITHUB_ENV
+            
+            echo "UPDATED_DOCKER_REGISTRY_PASSWORD=${{ secrets.DOCKER_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_LOGIN_SERVER=${{ secrets.DOCKER_REGISTRY_LOGIN_SERVER }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_USERNAME=${{ secrets.DOCKER_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+             
+            echo "UPDATED_DOCKER_REGISTRY_NAME=${{ vars.DOCKER_REGISTRY_NAME }}" >> $GITHUB_ENV
+
+
+          elif [[ "${{ github.ref }}" == "refs/heads/stage" ]]; then
+            echo "env=uat" >> $GITHUB_ENV
+            UPDATED_IMAGE_NAME=$(echo "${{ vars.IMAGE_NAME }}" | sed 's/env/uat/')
+            echo "UPDATED_IMAGE_NAME=$UPDATED_IMAGE_NAME" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_PASSWORD=${{ secrets.DOCKER_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_LOGIN_SERVER=${{ vars.DOCKER_REGISTRY_LOGIN_SERVER }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_USERNAME=${{ secrets.DOCKER_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_NAME=${{ vars.DOCKER_REGISTRY_NAME }}" >> $GITHUB_ENV
+
+          else
+            echo "env=dev" >> $GITHUB_ENV
+            UPDATED_IMAGE_NAME=$(echo "${{ vars.IMAGE_NAME }}" | sed 's/env/dev/')
+            echo "UPDATED_IMAGE_NAME=$UPDATED_IMAGE_NAME" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_PASSWORD=${{ secrets.DOCKER_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_LOGIN_SERVER=${{ vars.DOCKER_REGISTRY_LOGIN_SERVER }}" >> $GITHUB_ENV
+
+            echo "UPDATED_DOCKER_REGISTRY_USERNAME=${{ secrets.DOCKER_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+            
+            echo "UPDATED_DOCKER_REGISTRY_NAME=${{ vars.DOCKER_REGISTRY_NAME }}" >> $GITHUB_ENV
+          fi
+
+      - name: Install Trivy
+        run: |
+         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+         echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+         sudo apt-get update && sudo apt-get install trivy
+
+      - name: Get short commit hash
+        id: get_short_commit_hash
+        run: echo "::set-output name=short_commit_hash::$(git rev-parse --short=3 HEAD)"
+
+
+      - name: Login to docker Container Registry
+        run: echo ${{ env.UPDATED_DOCKER_REGISTRY_PASSWORD }} | docker login ${{ env.UPDATED_DOCKER_REGISTRY_LOGIN_SERVER }}  -u ${{ env.UPDATED_DOCKER_REGISTRY_USERNAME }} --password-stdin
+      
+      - name: Build Docker image
+        run: |
+            docker build -t ${{ env.UPDATED_DOCKER_REGISTRY_LOGIN_SERVER }}/${{ env.UPDATED_IMAGE_NAME }}:${{ steps.get_short_commit_hash.outputs.short_commit_hash }} .
+
+      - name: Scan Docker image
+        run: trivy image ${{ env.UPDATED_DOCKER_REGISTRY_LOGIN_SERVER }}/${{ env.UPDATED_IMAGE_NAME }}:${{ steps.get_short_commit_hash.outputs.short_commit_hash }}
+
+
+      - name: Push Docker image to docker Container Registry
+        run: docker push ${{ env.UPDATED_DOCKER_REGISTRY_LOGIN_SERVER }}/${{ env.UPDATED_IMAGE_NAME }}:${{ steps.get_short_commit_hash.outputs.short_commit_hash }}
