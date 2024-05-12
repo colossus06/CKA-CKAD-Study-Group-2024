@@ -1,0 +1,158 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  containers:
+  - name: mysql
+    ports:
+    - containerPort: 3306
+    image: gulcantopcu/ckad-mysql:latest
+    resources:
+      requests:
+        memory: "500Mi"
+        cpu: "5m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: colo
+    - name: MYSQL_DATABASE
+      value: ckad_crud
+    - name: MYSQL_USER
+      value: colo
+    - name: MYSQL_PASSWORD
+      value: colo
+    volumeMounts:
+    - name: mysql-data
+      mountPath: /var/lib/mysql
+  volumes:
+  - name: mysql-data
+    emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crud
+  labels:
+    app: crud
+spec:
+  containers:
+  - name: crud
+    imagePullPolicy: Always
+    image: gulcantopcu/ckad-crud:latest
+    resources:
+      requests:
+        memory: "21Mi"
+        cpu: "2m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
+    ports:
+    - containerPort: 5000
+    env:
+    - name: MYSQL_HOST
+      value: mysql-svc
+    - name: MYSQL_USER
+      value: colo
+    - name: MYSQL_PASSWORD
+      value: colo
+    - name: MYSQL_DB
+      value: ckad_crud
+    - name: MYSQL_PORT
+      value: "3306"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crud-svc
+spec:
+  selector:
+    app: crud
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: notification
+  labels:
+    app: notification
+spec:
+  containers:
+  - name: notification
+    imagePullPolicy: Always
+    image: gulcantopcu/ckad-notification:latest
+    resources:
+      requests:
+        memory: "5Mi"
+        cpu: "2m"
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+    ports:
+    - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-svc
+spec:
+  selector:
+    app: notification
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  containers:
+  - name: frontend
+    imagePullPolicy: Always
+    image: gulcantopcu/ckad-frontend:latest
+    resources:
+      requests:
+        memory: "8Mi"
+        cpu: "2m"
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  selector:
+    app: frontend
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

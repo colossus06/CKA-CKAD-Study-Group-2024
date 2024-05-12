@@ -1,0 +1,19 @@
+#taskList {
+    background-color: #e0f0ff; /* Light blue background */ 
+    padding: 20px; /* Padding around the entire task list */
+  }
+  
+  .card {
+   background-color: #f0f0f0; /* Subtle gray for cards */
+   margin-bottom: 15px; /* Spacing between cards */
+  }
+  
+  .card-body {
+   padding: 15px; /* Padding within the card content */
+  }
+  
+.small-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px; /* Adjust the max-height as needed */
+}

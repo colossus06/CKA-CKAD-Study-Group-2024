@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  containers:
+  - name: frontend
+    imagePullPolicy: Always
+    image: gulcantopcu/ckad-frontend:latest
+    resources:
+      requests:
+        memory: "8Mi"
+        cpu: "2m"
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  selector:
+    app: frontend
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

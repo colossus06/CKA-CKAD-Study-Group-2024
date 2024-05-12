@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: notification
+  labels:
+    app: notification
+spec:
+  containers:
+  - name: notification
+    imagePullPolicy: Always
+    image: gulcantopcu/ckad-notification:latest
+    resources:
+      requests:
+        memory: "5Mi"
+        cpu: "2m"
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+    ports:
+    - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-svc
+spec:
+  selector:
+    app: notification
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083

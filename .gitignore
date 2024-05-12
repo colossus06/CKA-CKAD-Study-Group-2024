@@ -5,3 +5,6 @@ week-III-monitoring/admin-user
 lego-blocks/admin-password
 lego-blocks/admin-user
 study-sessions/week-2/__pycache__/app.cpython-38.pyc
+4-tier-todo-app/app/notifications/target/*
+4-tier-todo-app/app/notifications/target/debug/*
+4-tier-todo-app/backup-app/frontend/go.mod

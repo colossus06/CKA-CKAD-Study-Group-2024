@@ -1,0 +1,62 @@
+services:
+  mysql:
+    image: gulcantopcu/ckad-mysql:1.1.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: colo
+      MYSQL_DATABASE: ckad_crud
+      MYSQL_USER: colo
+      MYSQL_PASSWORD: colo
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    volumes:
+      - new-mysql-data:/var/lib/mysql
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - ckad
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    command: go run .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - crud
+    networks:
+      - ckad
+
+  crud:
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DB: ckad_crud
+      MYSQL_USER: colo
+      MYSQL_PASSWORD: colo
+    container_name: crud
+    build: ./crud
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ckad
+  notification:
+    container_name: notification
+    build: ./notifications
+    ports:
+      - "8083:8083"
+    networks:
+      - ckad
+
+volumes:
+  new-mysql-data:
+
+networks:
+  ckad:
+    external: false
+    driver: bridge
+

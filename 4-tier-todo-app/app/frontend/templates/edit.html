@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Edit Task</h1>
+        <form action="/tasks/edit/{{.TaskID}}" method="post">
+            <div class="form-group" >
+                <label for="taskName">Task Name:</label>
+                <input type="text" class="form-control" id="taskName" name="taskName" value="{{.TaskName}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Task</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
