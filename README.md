@@ -117,7 +117,10 @@ Welcome to our **CKA/CKAD** study group repository! 🚀 This space is dedicated
 
 ### Join the Study Group
 
-   - Join our [study group](#) for discussions, Q&A, and collaborative learning.
+   - For discussions, Q&A, and collaborative learningJoin our
+      - CKA [study group](https://chat.whatsapp.com/FnRKwQrJ1L71JfGd3a7eGD)
+      - CKAD [study group](https://chat.whatsapp.com/ClwWPDEp83bLZgamnIRFjJ)
+
 
    Connect with fellow learners, ask questions, and participate in discussions related to CKA/CKAD exam preparation.
 
